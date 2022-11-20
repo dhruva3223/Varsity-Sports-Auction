@@ -1,0 +1,99 @@
+{% extends "auctions/layout.html" %} {% block body %}
+<section class="" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-12 col-xl-10">
+        <div class="card" style="border-radius: 15px">
+          <div class="card-body text-center">
+            <div class="mt-3 mb-4">
+              <img
+                src="../../static/auctions/img/fordashboard.svg"
+                class="rounded-circle img-fluid"
+                style="width: 100px"
+              />
+            </div>
+            <h4 class="mb-2">{{request.user.username}}</h4>
+            <p class="text-muted mb-4">{{request.user.email}}</p>
+            <h2 class="card-title h2"> Your WatchList</h2>
+            <br>
+            {% if present %} 
+            {% for item in product_list %}
+
+            <div class="d-flex justify-content-center">
+            <div class="card text-center card w-75" >
+                <div class="card-body">
+                  <h5 class="card-title">{{item.title}}</h5>
+                  <p class="card-text">
+                    Athlete : {{item.athlete_name}}
+                  </p>
+                  <p class="card-text">
+                    Price : {{item.starting_bid}}
+                  </p>
+              
+                  <a href="{% url 'viewauction' item.id %}"
+                ><button type="button" class="btn btn-primary">View Product</button><a>
+                </div>
+                <div style="background-color:#ffffff;" class="card-footer">{{item.created_at}}</div>
+              </div>
+            </div>
+
+
+            <br />
+            <br />
+
+            {% endfor %} {% else %}
+            <div class="text-center">
+              <!-- Text -->
+              <br />
+              <br />
+              <p class="lead">No Listings Found</p>
+            </div>
+            {% endif %}
+
+            <div class="jumbotron text-center">
+
+              <h2 class="card-title h2">AUCTION YOU WON</h2>
+              <p class="black-text my-4 font-weight-bold">
+                These are the Auction that you won.
+              </p>
+            </div>
+              <div class="row d-flex justify-content-center">
+                <div class="col-xl-10 pb-2">
+                  {% if not products %}
+                  <br />
+                  <h3>You did not win any Listings</h3>
+                  {% else %} {% for product in products %}
+                  <br />
+                  <div class="card card-cascade">
+                    <div class="card-body card-body-cascade text-center">
+                      <h4 class="card-title">
+                        <strong>{{product.title}}</strong>
+                      </h4>
+                      <p class="font-weight-bold">
+                        CONGRATULATIONS!!! You Won <br />
+                      </p>
+                      <p class="font-weight-bold">
+                        Athlete : {{product.athlete_name}} <br />
+                      </p>
+                      <p class="font-weight-bold">
+                        Winner : {{product.winner}} <br />
+                      </p>
+                      <p class="font-weight-bold">
+                        &#8377;{{product.winprice}}<br />
+                      </p>
+                    </div>
+                  </div>                  
+                  {% endfor %} {% endif %}
+                  <br>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
