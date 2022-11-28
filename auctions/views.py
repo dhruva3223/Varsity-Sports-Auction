@@ -11,6 +11,7 @@ from django.contrib.postgres.search import SearchVector
 from .models import *
 from django.contrib.postgres.search import TrigramSimilarity
 from django.shortcuts import redirect
+from decouple import config
 
 
 def index(request):
@@ -314,8 +315,8 @@ def closebid(request, product_id):
         bidobject = Bid.objects.get(listingid=product_id)
 
         # payment
-        key_id = 'YOUR ID'
-        key_secret = 'YOUR SECRET KEY'
+        key_id = config("KEY_ID")
+        key_secret = config("KEY_SECRET")
         client = razorpay.Client(auth=(key_id, key_secret))
         createpayment = client.payment_link.create({
             "amount": int(bidobject.bid)*100,

@@ -1,13 +1,12 @@
 # Varsity-Sports-Auction
+Built a Sports Gear Auction Website, developed using Django (using PostgresSQL) where fans can financially support their favourite NCAA athlete by purchasing their items
 
-## Prerequisites
+## Table of Contents 
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Run the application](#run-the-application)
 
-Install the following prerequisites:
-
-1. [Python 3.8.13 or higher](https://www.python.org/downloads/)
-2. [PostgreSQL](https://www.postgresql.org/download/)
-3. [Razorpay](https://razorpay.com/docs/#home-payments)
-4. [Visual Studio Code](https://code.visualstudio.com/download)
 
 ## Features
 
@@ -51,3 +50,140 @@ Install the following prerequisites:
 <img src="https://user-images.githubusercontent.com/91244148/202897211-9a84f9c3-4032-43f0-96ce-e2b3ea65dd11.gif" width="750">
 
 
+## Prerequisites
+
+Install the following prerequisites:
+
+1. [Python 3.8.13 or higher](https://www.python.org/downloads/)
+2. [PostgreSQL](https://www.postgresql.org/download/)
+3. [Razorpay](https://razorpay.com/docs/#home-payments)
+4. [Visual Studio Code](https://code.visualstudio.com/download)
+
+
+## Installation
+
+### 1. Create a virtual environment
+
+From the **root** directory run:
+
+```bash
+python -m venv venv
+```
+
+### 2. Activate the virtual environment
+
+From the **root** directory run:
+
+On macOS or Linux:
+
+```bash
+source venv/bin/activate
+```
+
+On Windows:
+
+```bash
+venv\scripts\activate
+```
+
+### 3. Install required dependencies
+
+From the **root** directory run:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Set up a PostgreSQL database
+
+With **PostgreSQL** up and running, in a new Terminal window run:
+
+```bash
+dropdb --if-exists auction
+```
+
+Start **psql**, which is a terminal-based front-end to PostgreSQL, by running the command:
+
+```bash
+psql postgres
+```
+
+Create a new PostgreSQL database:
+
+```sql
+CREATE DATABASE auction;
+```
+
+Create a new database admin user:
+
+```sql
+CREATE USER yourusername WITH SUPERUSER PASSWORD 'yourpassword';
+```
+
+Install pg_trgm extension in postgres:
+
+```sql
+\c auction
+CREATE EXTENSION pg_trgm;
+```
+
+To quit **psql**, run:
+
+```bash
+\q
+```
+
+### 5. Set up environment variables
+
+From the **root** directory run:
+
+```bash
+touch .env
+```
+
+The **touch** command will create the **.env** file in the **root** directory. This command works on Mac and Linux but not on Windows. If you are a Windows user, instead of using the command line, you can create the **.env** file manually by navigating in Visual Studio Code to the Explorer, and selecting the option **New File**.
+
+
+Next, declare environment variables in the **.env** file. Make sure you don't use quotation marks around the strings.
+
+```bash
+SECRET_KEY = yourSecretKey
+USER_NAME = yourUserame
+DATABASE_PASSWORD = yourPassword
+KEY_ID = yourRazorpayKeyId
+KEY_SECRET = yourRazorpayKeySecret
+```
+
+### 6. Run migrations
+
+From the **root** directory run:
+
+```bash
+python manage.py makemigrations
+```
+```bash
+python manage.py migrate
+```
+
+### 7. Create an admin user to access the Django Admin interface
+
+From the **root** directory run:
+
+```bash
+python manage.py createsuperuser
+```
+
+When prompted, enter a username, email, and password.
+
+
+## Run the application
+
+From the **root** directory run:
+
+```bash
+python manage.py runserver
+```
+
+### View the application
+
+Go to http://127.0.0.1:8000/ to view the application.
